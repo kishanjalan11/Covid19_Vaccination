@@ -1,0 +1,32 @@
+Hibernate: create table aadhar_card (aadhar_id integer not null auto_increment, aadghar_no bigint, user_id integer, primary key (aadhar_id)) engine=InnoDB
+Hibernate: create table appointment (booking_id integer not null auto_increment, booking_status bit not null, date_of_booking date, mobile_no bigint, slot enum ('SLOT1','SLOT2','SLOT3','SLOT4','SLOT5','SLOT6','SLOT7','SLOT8','SLOT9'), member_id_id integer, vax_center_center_id integer, primary key (booking_id)) engine=InnoDB
+Hibernate: create table member (id integer not null auto_increment, date_of_registration date, dose1date date, dose1status boolean default false, dose2date date, dose2status boolean default false, mob_no bigint, user_id integer, primary key (id)) engine=InnoDB
+Hibernate: create table user (id integer not null auto_increment, aadhar_no varchar(255) not null, address varchar(80), city varchar(40), dob date, email varchar(255), gender varchar(255) not null, name varchar(20), pan_no varchar(255), password varchar(255), pincode varchar(255), role varchar(255), state varchar(40), member_id integer, primary key (id)) engine=InnoDB
+Hibernate: create table vaccination_center (center_id integer not null auto_increment, address varchar(80), center_name varchar(80), city varchar(80), pin_code varchar(255), state varchar(80), vax_inventory_inventory_id integer, primary key (center_id)) engine=InnoDB
+Hibernate: create table vaccine (id integer not null auto_increment, description varchar(255), vax_name varchar(255), member_id integer, primary key (id)) engine=InnoDB
+Hibernate: create table vaccine_count (vax_id integer not null auto_increment, vax_price float(53) not null, vax_quantity integer, vaccine_id integer, vax_inventory_inventory_id integer, primary key (vax_id)) engine=InnoDB
+Hibernate: create table vaccine_inventory (inventory_id integer not null auto_increment, date date, vaccine_id integer, primary key (inventory_id)) engine=InnoDB
+Hibernate: alter table appointment drop index UK_e3g5uao3wkrxcriycjwgucjxm
+Hibernate: alter table appointment add constraint UK_e3g5uao3wkrxcriycjwgucjxm unique (member_id_id)
+Hibernate: alter table member drop index UK_a9bw6sk85ykh4bacjpu0ju5f6
+Hibernate: alter table member add constraint UK_a9bw6sk85ykh4bacjpu0ju5f6 unique (user_id)
+Hibernate: alter table user drop index UK_6uuf6642wus5lwkh9soh2r3v9
+Hibernate: alter table user add constraint UK_6uuf6642wus5lwkh9soh2r3v9 unique (aadhar_no)
+Hibernate: alter table user drop index UK_ob8kqyqqgmefl0aco34akdtpe
+Hibernate: alter table user add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email)
+Hibernate: alter table user drop index UK_9o3wj6v6neithkdwrtelcbo96
+Hibernate: alter table user add constraint UK_9o3wj6v6neithkdwrtelcbo96 unique (member_id)
+Hibernate: alter table vaccination_center drop index UK_1x6nwxtw4ug5m1rmsm2aey1yo
+Hibernate: alter table vaccination_center add constraint UK_1x6nwxtw4ug5m1rmsm2aey1yo unique (vax_inventory_inventory_id)
+Hibernate: alter table vaccine drop index UK_culvkfvq0xjbl7ie1xf55au1h
+Hibernate: alter table vaccine add constraint UK_culvkfvq0xjbl7ie1xf55au1h unique (member_id)
+Hibernate: alter table vaccine_count drop index UK_njreege8hk0xkewhg3bxk0s2b
+Hibernate: alter table vaccine_count add constraint UK_njreege8hk0xkewhg3bxk0s2b unique (vaccine_id)
+Hibernate: alter table appointment add constraint FKh5vvif5c6dnf2w2gkv485w9ob foreign key (member_id_id) references member (id)
+Hibernate: alter table appointment add constraint FKqw2c312dk8ph0etspf13cciis foreign key (vax_center_center_id) references vaccination_center (center_id)
+Hibernate: alter table member add constraint FKswb523yn1xw3806ojrfpcyadl foreign key (user_id) references user (id)
+Hibernate: alter table user add constraint FKtcx8a5i8q7mmh7xl2fi44o8v2 foreign key (member_id) references member (id)
+Hibernate: alter table vaccination_center add constraint FKi8evdain78a0e0h0q2c5p5p25 foreign key (vax_inventory_inventory_id) references vaccine_inventory (inventory_id)
+Hibernate: alter table vaccine add constraint FKl8vs9s54mmrxbixu692oud1w2 foreign key (member_id) references member (id)
+Hibernate: alter table vaccine_count add constraint FKjx9f7mlkqe6883jc3nojj2gf8 foreign key (vaccine_id) references vaccine (id)
+Hibernate: alter table vaccine_count add constraint FK39neug8qtgs4mpl2b3u6eqc5k foreign key (vax_inventory_inventory_id) references vaccine_inventory (inventory_id)
